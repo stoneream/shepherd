@@ -1,4 +1,3 @@
-
 @main def main(): Unit =
   val v =
     div id "parent" $ (
