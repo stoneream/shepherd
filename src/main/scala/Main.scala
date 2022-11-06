@@ -6,9 +6,19 @@
         div id "child1-2"
       ),
       div id "child2" $ (
-        div id "child2-2"
+        div id "child2-1"
       )
     )
+
+  /*
+  ホントはインデントで表現できたら良いのですが...?（もしかしてできる？
+  div id "parent"
+    div id "child1"
+      div id "child1-1"
+      div id "child1-2"
+    div id "child2"
+      div id "child2-1"
+   */
 
   println(v)
 
