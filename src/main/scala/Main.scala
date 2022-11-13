@@ -26,6 +26,8 @@ import scala.annotation.{tailrec, targetName}
       div id "child2-1"
    */
 
+// 根本的に設計ミスったかも
+
 case class Tag(name: String, attrs: Seq[Attr] = Nil, children: Seq[Tag | String] = Nil):
   def addAttr(attr: Attr): Tag = this.copy(attrs = attrs :+ attr)
   def addChild(child: Tag | String): Tag = this.copy(children = children :+ child)
