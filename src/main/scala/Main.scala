@@ -4,7 +4,9 @@ import scala.annotation.{tailrec, targetName}
   val dom =
     div id "parent" $ (
       div id "child 1" $ (
-        div id "child1-1",
+        div id "child1-1" $ (
+          p("hello")
+        ),
         div id "child1-2"
       ),
       div id "child 2" $ (
@@ -24,15 +26,18 @@ import scala.annotation.{tailrec, targetName}
       div id "child2-1"
    */
 
-case class Tag(name: String, attrs: Seq[Attr] = Nil, children: Seq[Tag] = Nil):
+case class Tag(name: String, attrs: Seq[Attr] = Nil, children: Seq[Tag | String] = Nil):
   def addAttr(attr: Attr): Tag = this.copy(attrs = attrs :+ attr)
-  def addChild(child: Tag): Tag = this.copy(children = children :+ child)
+  def addChild(child: Tag | String): Tag = this.copy(children = children :+ child)
   def toHTML(depth: Int = 0): String = {
     val indent = "  " * depth
     val attrsStr = attrs.map(_.toHTML).mkString(" ")
     val startTag = s"$indent<$name $attrsStr>"
     val childrenStr = {
-      val temp = children.map(_.toHTML(depth + 1))
+      val temp = children.map {
+        case str: String => TextUtil.escape(str)
+        case tag: Tag => tag.toHTML(depth + 1)
+      }
       if (temp.isEmpty) {
         temp.mkString("")
       } else {
@@ -49,8 +54,7 @@ case class Tag(name: String, attrs: Seq[Attr] = Nil, children: Seq[Tag] = Nil):
   }
 
 extension (parent: Tag)
-  @targetName("addChild")
-  def $(children: Tag*): Tag = children.foldLeft(parent) { case (p, child) => p.addChild(child) }
+  def $(children: (Tag | String)*): Tag = children.foldLeft(parent) { case (p, child) => p.addChild(child) }
   def id(name: String): Tag = parent.addAttr(IdAttr(name))
   def cls(name: String): Tag = parent.addAttr(ClassAttr(name))
 
@@ -65,4 +69,5 @@ case class IdAttr(value: String) extends Attr:
 case class ClassAttr(value: String) extends Attr:
   val name = "class"
 
-val div = Tag("div")
+def div: Tag = Tag("div")
+def p(paragraph: String): Tag = Tag("p").addChild(paragraph)
