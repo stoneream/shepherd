@@ -5,15 +5,9 @@ sealed trait HTMLAttribute {
 
 object HTMLAttribute {
   trait EmptyAttribute
-  trait UnquotedAttribute {
-    val name: String
-  }
-  trait SingleQuotedAttribute {
-    val name: String
-  }
-  trait DoubleQuotedAttribute {
-    val name: String
-  }
+  case class UnquotedAttribute(name: String, value: String) extends HTMLAttribute
+  case class SingleQuotedAttribute(name: String, value: String) extends HTMLAttribute
+  case class DoubleQuotedAttribute(name: String, value: String) extends HTMLAttribute
 }
 
 // todo validateion
