@@ -1,6 +1,9 @@
 import scala.annotation.targetName
 
-// https://momdo.github.io/html/syntax.html#elements-2
+/**
+ * HTML Standard : https://html.spec.whatwg.org/multipage/syntax.html#elements-2
+ */
+
 sealed trait HTMLElement {
   val name: String
   val attributes: List[HTMLAttribute]
@@ -40,4 +43,4 @@ object HTMLElement {
     def ~(attributes: HTMLAttribute*) = normalElement.addAttributes(attributes: _*)
 }
 
-// todo validateion
+// todo validation
