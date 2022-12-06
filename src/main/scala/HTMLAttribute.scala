@@ -2,7 +2,7 @@
  * HTML Standard : https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
  */
 
-sealed trait HTMLAttribute {
+trait HTMLAttribute {
   val value: String
 }
 

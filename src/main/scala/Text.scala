@@ -1,6 +1,8 @@
-case class UnescapeText(s: String)
-type EscapableText = String
+sealed trait Text {
+  val value: String
+}
 
-implicit class TextInterpolationString(private val sc: StringContext) extends AnyVal {
-  def unescape(args: Any*): UnescapeText = UnescapeText(sc.parts.mkString)
+object Text {
+  case class RawText(value: String) extends Text
+  case class EscapableText(value: String) extends Text
 }
