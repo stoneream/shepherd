@@ -1,4 +1,4 @@
-import scala.annotation.tailrec
+//import scala.annotation.tailrec
 
 //object HTMLGenerator {
 //  def generate(child: Child, depth: Int = 0): String = {

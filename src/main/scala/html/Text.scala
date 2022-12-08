@@ -1,3 +1,5 @@
+package html
+
 sealed trait Text {
   val value: String
 }
