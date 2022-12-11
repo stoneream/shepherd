@@ -4,7 +4,6 @@ package html
  * HTML Standard : https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
  */
 
-
 sealed trait Attribute {
   val value: String
 }
